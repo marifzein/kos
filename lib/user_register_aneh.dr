@@ -1,0 +1,360 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+//import 'package:kos/dashboard.dart';
+import 'package:kos/entities/kos.dart';
+import 'package:kos/entities/objectbox.dart';
+import 'package:kos/libclass.dart';
+import 'package:kos/login.dart';
+import 'package:kos/objectbox.g.dart';
+
+import 'package:kos/main.dart';
+main() async{
+  //WidgetsFlutterBinding.ensureInitialized();
+  //store = (await ObjectBox.create()).store;
+  runApp(const usrRegister(
+    namausr: '',
+  ));
+}
+
+//==========================================================
+class usrRegister extends StatefulWidget {
+  //const properti({super.key});
+
+  final namausr;
+  //const usrRegister(String s, {super.key, required this.namausr});
+  const usrRegister({super.key, this.namausr});
+  @override
+  State<usrRegister> createState() => _usrRegisterState();
+}
+
+//==========================================================
+class _usrRegisterState extends State<usrRegister> {
+  //final Box<Propinsi> propinsiBox =  store.box<Propinsi>();
+  final TextEditingController _namapemilik =
+      TextEditingController(text: 'Fulan');
+  final TextEditingController _alamat =
+      TextEditingController(text: 'Jalan Pahlawan 1');
+  final TextEditingController _telp =
+      TextEditingController(text: '088811112222');
+  final TextEditingController _email =
+      TextEditingController(text: 'anda@gmail.com');
+
+
+  final Box<Propinsi>? propinsiBox = store.box<Propinsi>();
+  final Box<Kota>? kotaBox = store.box<Kota>();
+
+  int propinsiku = 0;
+  int kotaku = 1;
+  final List<Map<String, String>> kotaTemp = [];
+
+   Future _tampilkota(int val) async {
+    return setState(() {
+      //val = int.parse(val);
+      log('macet 1');
+
+      //log('val = $val sedangkan propinsiku = $propinsiku');
+      if (propinsiku != val) {
+        //kotaSelected = 1;
+        log('macet 2');
+        //log('Query kalo beda propinsi');
+        kotaTemp.clear();
+        //var kotaTemp = [];
+        QueryBuilder<Kota> builder =kotaBox.query(Kota_.idPropinsi.equals(val));
+        //kotaBox.query(Kota_.idPropinsi.equals(val));
+        Query<Kota> query = builder.build();
+
+        var blung = query.find();
+        //List blung = query.find();
+
+        log('macet 3 inilah isine kotaTemp seblm blung masuk ke kotatemp');
+        
+        //==========================iterate
+        //blung.forEach((e) {};
+        for (int i = 0; i < blung.length; i++) {
+          kotaTemp.add({'id': (blung[i].id).toString(), 'nama': blung[i].nama});
+
+          //kotaTemp.add({e.id, e.nama});
+
+          // kotaTemp.add({e.id,e.nama});
+        }
+        //log('kotaSelected = ' + kotaSelected);
+        log('blung ke 0=${blung[0].id}');
+        kotaku = blung[0].id;
+        //iki yo iso
+        //print(kotaTemp[0]["nama"]);
+
+        /*  blung.forEach((e) {
+          log(e.id.toString() + " - " + e.nama);
+        }); */
+        log('macet 4 sblm iterassi kotatemp');
+        for (var e in kotaTemp) {
+          log(e['id'].toString());
+          log(e['nama'].toString());
+        }
+
+       
+      }
+
+      propinsiku = val;
+
+      log('macet 4 selectedkota =$kotaku selectedProp=$propinsiku');
+    });
+  }
+
+  //@override
+  initState() {
+    if (propinsiBox.isEmpty() == false) {
+      int valui = propinsiBox.getAll().first.id;
+      log("initState Called nilai prop ID taks setting $valui");
+      _tampilkota(valui);
+      kotaku = 8;
+    } else {
+      log('data table/entiti kosong');
+    }
+  } 
+
+  /* Widget build(BuildContext context) {
+    return Scaffold(
+        //return Scaffold(
+        appBar: AppBarForm(
+          title: 'Akun /Pengguna Baru',
+          subtitle: 'Lengkapi data anda',
+        ),
+        body: Container(
+          child: Text("user register aneh"),
+        ));
+  } */
+
+@override
+     Widget build(BuildContext context) {
+    return Scaffold(
+      //return Scaffold(
+      appBar: AppBarForm(
+        title: 'Akun /Pengguna Baru',
+        subtitle: 'Lengkapi data anda',
+      ),
+
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(20),
+          margin: new EdgeInsets.symmetric(vertical: 30.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              //NAMA PROPERTI
+              LabelInput(
+                text: 'Nama User/Pemilik Kost',
+              ),
+
+              // const SizedBox(height: 5),
+              TextField(
+                //style: TextStyle(fontSize: 12),
+                controller: _namapemilik,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 15),
+                  /* border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ), */
+                  hintText: "Pak Fulan",
+                  prefixIcon: Icon(Icons.person),
+                ),
+              ),
+              const SizedBox(height: 30),
+              //ALAMAT
+              LabelInput(
+                text: 'Alamat',
+              ),
+
+              //const SizedBox(height: 5),
+
+              TextField(
+                controller: _alamat,
+                style: TextStyle(fontSize: 15),
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 15),
+                  /* border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ), */
+                  hintText: "Jl. Pahlawan no 1, Jakarta",
+                  prefixIcon: Icon(Icons.location_on_outlined),
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              //PROPINSI===================
+              LabelInput(
+                text: 'Propinsi',
+              ),
+//TERLALU START
+              const SizedBox(height: 5),
+              DropdownButtonFormField(
+                  hint: Text('Propinsi'),
+                  value: (propinsiBox.isEmpty()
+                      ? 0
+                      : propinsiBox.getAll().first.id),
+                  isDense: true,
+                  dropdownColor: Color.fromARGB(255, 245, 245, 245),
+                  icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(CupertinoIcons.location_solid),
+                    //border: OutlineInputBorder(
+                    // borderRadius: BorderRadius.all(Radius.circular(10))),
+                  ),
+                  //borderRadius: BorderRadius.all(Radius.circular(10.0)),
+
+                  //items: _propinsilist
+                  items: propinsiBox
+                      ?.getAll()
+                      .map((e) => DropdownMenuItem(
+                            value: e.id,
+                            child: Text(e.nama),
+                          ))
+                      .toList(),
+                  onChanged: (val) {
+                    _tampilkota(val!);
+                  }),
+              const SizedBox(height: 10),
+//SELESAI
+              //const SizedBox(height: 5),
+              LabelInput(
+                text: 'Kota',
+              ),
+
+              DropdownButtonFormField(
+
+                  //color: Color.fromARGB(255, 195, 0, 110),
+                  //style: TextStyle(fontSize: 15),
+                  //value: kotaku,
+                  hint: Text('Kota'),
+                  value: (kotaTemp.isEmpty ? 0 : kotaTemp[0]["id"]),
+                  dropdownColor: Color.fromARGB(255, 245, 245, 245),
+                  icon: const Icon(Icons.arrow_drop_down_circle_outlined),
+                  isExpanded: true,
+                  decoration: const InputDecoration(
+                    //filled: true,
+                    //fillColor: Colors.black87,
+                    prefixIcon: Icon(CupertinoIcons.location),
+                    //border: OutlineInputBorder(
+                    //borderRadius: BorderRadius.all(Radius.circular(15))),
+                  ),
+                  //borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  /*  items: kotaBox
+                      .getAll() */
+                  //items: _kotalist
+                  items: kotaTemp
+                      .map((e) => DropdownMenuItem(
+                            value: e['id'],
+                            child: Text(e['nama'].toString()),
+                          ))
+                      .toList(),
+                  //.map(e).toList(),
+                  /* items: kotaTemp.map((e) => DropdownMenuItem(
+                            value: 1,
+                            child: Text(e['id'].toString()),
+                          ))
+                      .toList(), */
+                  onChanged: (newValue) {
+                    setState(() {
+                      //kotaSelected = int.parse(newValue!);
+                      //kotaSelected = newValue;
+                      log(newValue.toString());
+                    });
+                  }),
+
+              const SizedBox(height: 30),
+              //ALAMAT
+              LabelInput(
+                text: 'Telp/HP',
+              ),
+              //const SizedBox(height: 5),
+
+              TextField(
+                controller: _telp,
+                style: TextStyle(fontSize: 15),
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 15),
+                  /* border: OutlineInputBorder( 
+                  borderRadius: BorderRadiu  s.circular(15.0),
+                   ), */
+                  hintText: "088811111111",
+                  prefixIcon: Icon(Icons.phone_android),
+                ),
+              ),
+
+              const SizedBox(height: 30),
+              //email
+              LabelInput(
+                text: 'Email',
+              ),
+              //const SizedBox(height: 5),
+
+              TextField(
+                controller: _email,
+                style: TextStyle(fontSize: 15),
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintStyle: TextStyle(fontSize: 15),
+                  /* border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ), */
+                  hintText: "anda@gmail.com",
+                  prefixIcon: Icon(Icons.email_rounded),
+                ),
+              ),
+              const SizedBox(height: 30),
+              ButtonSimpan(
+                /* pgTujuan: usrRegister(
+                  namausr: widget.namausr,
+                ), */
+                pgTujuan: LoginPage(), ownerKos: '',
+                titleDialog: 'Simpan Data Akun',
+
+                //ownerKos: widget.namausr,
+              ),
+              /*  fncParam: () {
+                  print("ok siap pak"); */
+
+              //),
+              /* Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 10,
+                    fixedSize: Size(300, 60),
+                    backgroundColor: Color.fromARGB(255, 195, 0, 110),
+                    foregroundColor: Colors.white,
+                    splashFactory: InkSplash.splashFactory,
+                  ),
+                  onPressed: () {},
+                  child: const Text('S I M P A N'),
+                ),
+              ), */
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /* chPage(index) {
+   
+    setState(() => currentIndex = index);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) {
+        //return Dashboard(jeneng: widget.namausr);
+        //return halTujuan[index];
+        return LoginPage();
+      }),
+    );
+    //Navigator.pushNamed(context, Dashboard(jeneng: 'asd'));
+    //debugPrint('asd');
+    //debugPrint('chPage function');
+  } */ 
+}

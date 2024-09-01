@@ -1,0 +1,299 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:5233509218129212925",
+      "lastPropertyId": "3:6331439180886849182",
+      "name": "Kota",
+      "properties": [
+        {
+          "id": "1:4443543510187472688",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5394644993808375998",
+          "name": "idPropinsi",
+          "type": 6
+        },
+        {
+          "id": "3:6331439180886849182",
+          "name": "nama",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:3699609095258361710",
+      "lastPropertyId": "7:2979073095526097413",
+      "name": "Pembayaran",
+      "properties": [
+        {
+          "id": "1:1562143152199171844",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:3814482772852596365",
+          "name": "tglBayar",
+          "type": 10
+        },
+        {
+          "id": "3:3362299690526816984",
+          "name": "tglcekin",
+          "type": 10
+        },
+        {
+          "id": "4:8563908410927550284",
+          "name": "tglcekout",
+          "type": 10
+        },
+        {
+          "id": "5:8112728618374932147",
+          "name": "idpenghuni",
+          "type": 6
+        },
+        {
+          "id": "6:3982407232089728253",
+          "name": "typebayar",
+          "type": 6
+        },
+        {
+          "id": "7:2979073095526097413",
+          "name": "nominalbayar",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:4711097038263764464",
+      "lastPropertyId": "8:7666741232702495889",
+      "name": "Pemilik",
+      "properties": [
+        {
+          "id": "1:2479224807423711434",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1754705969156483089",
+          "name": "namapemilik",
+          "type": 9
+        },
+        {
+          "id": "3:5315382713849574158",
+          "name": "password",
+          "type": 9
+        },
+        {
+          "id": "4:9000845526475537795",
+          "name": "alamat",
+          "type": 9
+        },
+        {
+          "id": "5:48580008407864108",
+          "name": "kota",
+          "type": 6
+        },
+        {
+          "id": "6:8992574019344608474",
+          "name": "propinsi",
+          "type": 6
+        },
+        {
+          "id": "7:8357048200525013676",
+          "name": "hp",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:8541607447165412436"
+        },
+        {
+          "id": "8:7666741232702495889",
+          "name": "email",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "4:1279954679340725697"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:6783120590079731947",
+      "lastPropertyId": "10:3332326687405992540",
+      "name": "Penghuni",
+      "properties": [
+        {
+          "id": "1:2749272874321082056",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4081425722869910317",
+          "name": "idTipeKamar",
+          "type": 6
+        },
+        {
+          "id": "3:4822901537981307398",
+          "name": "nama",
+          "type": 9
+        },
+        {
+          "id": "4:3067927041743085314",
+          "name": "noIdentitas",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "2:4893111921700059964"
+        },
+        {
+          "id": "5:6603121635708780870",
+          "name": "tgLahir",
+          "type": 10
+        },
+        {
+          "id": "6:6468602096729171324",
+          "name": "alamat",
+          "type": 9
+        },
+        {
+          "id": "7:4096120346947062132",
+          "name": "idKota",
+          "type": 6
+        },
+        {
+          "id": "8:7358210886135090661",
+          "name": "idPropinsi",
+          "type": 6
+        },
+        {
+          "id": "9:731828528153889274",
+          "name": "hp",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "3:7807404754081620903"
+        },
+        {
+          "id": "10:3332326687405992540",
+          "name": "pekerjaan",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:2872221821237681070",
+      "lastPropertyId": "6:1189222981697717626",
+      "name": "Properti",
+      "properties": [
+        {
+          "id": "1:4839983741830959073",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7039198446848518461",
+          "name": "nama",
+          "type": 9
+        },
+        {
+          "id": "3:1096248180316245715",
+          "name": "alamat",
+          "type": 9
+        },
+        {
+          "id": "4:6280113960158626571",
+          "name": "kota",
+          "type": 6
+        },
+        {
+          "id": "5:7820431980678664312",
+          "name": "propinsi",
+          "type": 6
+        },
+        {
+          "id": "6:1189222981697717626",
+          "name": "pemilikId",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:2592039783726973148",
+      "lastPropertyId": "2:1319229573417460616",
+      "name": "Propinsi",
+      "properties": [
+        {
+          "id": "1:4601416089109290301",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1319229573417460616",
+          "name": "nama",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:3651794904217840438",
+      "lastPropertyId": "6:2443444354731438327",
+      "name": "TipeKamar",
+      "properties": [
+        {
+          "id": "1:2115157674631956296",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8248794739035063451",
+          "name": "nama",
+          "type": 9
+        },
+        {
+          "id": "3:5707365600004355893",
+          "name": "alamat",
+          "type": 9
+        },
+        {
+          "id": "4:2319528895446711692",
+          "name": "kota",
+          "type": 6
+        },
+        {
+          "id": "5:2525400172940867377",
+          "name": "propinsi",
+          "type": 6
+        },
+        {
+          "id": "6:2443444354731438327",
+          "name": "propertiId",
+          "type": 6
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "7:3651794904217840438",
+  "lastIndexId": "4:1279954679340725697",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
